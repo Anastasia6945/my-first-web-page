@@ -2,35 +2,90 @@
 <html>
 <head>
     <title>My Mini App Hub</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 60px;
+            background-color: #f5f5f5;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px 50px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        #darkModeBtn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        /* Dark mode styles */
+        body.dark {
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+
+        body.dark .card {
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+        }
+    </style>
 </head>
-<body style="font-family: Arial; text-align: center; margin-top: 60px; background-color: #f5f5f5;">
+<body>
 
     <h1>👋 Welcome to My Mini App Hub</h1>
     <p>Choose what you want to explore:</p>
 
-    <div style="margin-top: 40px;">
-
-        <button onclick="goTo('mood.html')" style="padding: 15px 25px; font-size: 16px;">
-            💭 Mood Tracker
-        </button>
-
-        <br><br>
-
-        <button onclick="goTo('guess.html')" style="padding: 15px 25px; font-size: 16px;">
-            🎲 Guess the Number
-        </button>
-
-        <br><br>
-
-        <button onclick="goTo('hello.html')" style="padding: 15px 25px; font-size: 16px;">
-            🌈 Hello Page
-        </button>
-
+    <div class="card-container">
+        <div class="card" onclick="goTo('mood.html')">💭 Mood Tracker</div>
+        <div class="card" onclick="goTo('guess.html')">🎲 Guess the Number</div>
+        <div class="card" onclick="goTo('hello.html')">🌈 Hello Page</div>
     </div>
+
+    <button id="darkModeBtn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
     <script>
         function goTo(page) {
             window.location.href = page;
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+
+            // Смяна на текста на бутона
+            const btn = document.getElementById('darkModeBtn');
+            if(document.body.classList.contains('dark')) {
+                btn.innerText = '☀️ Light Mode';
+            } else {
+                btn.innerText = '🌙 Dark Mode';
+            }
         }
     </script>
 
