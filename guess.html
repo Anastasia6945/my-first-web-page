@@ -2,19 +2,40 @@
 <html>
 <head>
     <title>Guess the Number</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #f5f5f5, #c8e6c9);
+            transition: background 0.5s, color 0.5s;
+            overflow-x: hidden;
+        }
+        h1 { margin-top: 50px; font-size: 2.8em; color: #333;}
+        input { font-size: 1.2em; padding: 10px; border-radius: 10px; border: 1px solid #ccc; text-align: center;}
+        button { padding: 12px 25px; font-size: 1em; border-radius: 12px; cursor: pointer; margin-top:20px; background:#333; color:#fff; border:none; transition: transform 0.2s;}
+        button:hover { transform: scale(1.1); background:#555;}
+        #result { margin-top:30px; font-size:1.5em; font-weight:bold;}
+        #backBtn, #darkModeBtn { margin-top:20px; margin-right:10px; background:#333; color:#fff; }
+        #backBtn:hover, #darkModeBtn:hover { transform:scale(1.1); background:#555;}
+        body.dark { background: linear-gradient(to bottom, #121212, #1a1a1a); color: #f0f0f0;}
+        body.dark input { background:#333; color:#f0f0f0; border:1px solid #555;}
+        body.dark button, body.dark #backBtn, body.dark #darkModeBtn { background:#f0f0f0; color:#121212;}
+    </style>
 </head>
-<body style="font-family: Arial; text-align: center; margin-top: 50px;">
+<body>
 
-    <button onclick="window.location.href='index.html'" style="margin-bottom: 30px;">
-    ⬅ Back to Menu
-</button>
+    <button id="backBtn" onclick="window.location.href='index.html'">⬅ Back to Menu</button>
+    <button id="darkModeBtn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
-    <h1>Guess the Number 🎲</h1>
-    <p>I am thinking of a number between 1 and 10</p>
+    <h1>🎲 Guess the Number</h1>
+    <p>Pick a number between 1 and 10:</p>
 
     <input type="number" id="guessInput" min="1" max="10">
-    <br><br>
-    <button onclick="checkGuess()">Guess</button>
+    <br>
+    <button onclick="checkGuess()">Guess!</button>
 
     <h2 id="result"></h2>
 
@@ -23,21 +44,23 @@
 
         function checkGuess() {
             let userGuess = Number(document.getElementById("guessInput").value);
+            const result = document.getElementById("result");
 
-            if (!userGuess) {
-                document.getElementById("result").innerText = "Please enter a number 🙂";
-                return;
-            }
+            if (!userGuess) { result.innerText = "Please enter a number 🙂"; return; }
 
             if (userGuess === secretNumber) {
-                document.getElementById("result").innerText = "🎉 Correct! You guessed it!";
-            } 
-            else if (userGuess < secretNumber) {
-                document.getElementById("result").innerText = "Too low 🔽";
-            } 
-            else {
-                document.getElementById("result").innerText = "Too high 🔼";
+                result.innerText = "🎉 Correct! You guessed it!";
+            } else if (userGuess < secretNumber) {
+                result.innerText = "Too low 🔽";
+            } else {
+                result.innerText = "Too high 🔼";
             }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            const btn = document.getElementById('darkModeBtn');
+            btn.innerText = document.body.classList.contains('dark') ? '☀️ Light Mode' : '🌙 Dark Mode';
         }
     </script>
 
