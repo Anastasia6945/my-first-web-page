@@ -9,7 +9,8 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #f5f5f5, #e0e0e0);
+            background: linear-gradient(to bottom, #f5f5f5, #e0f7fa);
+            overflow-x: hidden;
             transition: background 0.5s, color 0.5s;
         }
 
@@ -17,6 +18,7 @@
             margin-top: 50px;
             font-size: 3em;
             color: #333;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
         }
 
         p {
@@ -33,8 +35,8 @@
         }
 
         .card {
-            background: linear-gradient(145deg, #ffffff, #e0e0e0);
-            border-radius: 15px;
+            background: linear-gradient(145deg, #ffeb3b, #ff9800);
+            border-radius: 20px;
             width: 180px;
             height: 180px;
             display: flex;
@@ -42,15 +44,19 @@
             justify-content: center;
             font-size: 1.3em;
             font-weight: bold;
-            color: #333;
+            color: #fff;
             cursor: pointer;
-            box-shadow: 8px 8px 15px #d1d1d1, -8px -8px 15px #ffffff;
+            box-shadow: 8px 8px 20px rgba(0,0,0,0.2);
             transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
         }
 
+        .card:nth-child(2) { background: linear-gradient(145deg, #4caf50, #81c784); }
+        .card:nth-child(3) { background: linear-gradient(145deg, #2196f3, #64b5f6); }
+        .card:nth-child(4) { background: linear-gradient(145deg, #9c27b0, #ba68c8); }
+
         .card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 12px 12px 20px #c1c1c1, -12px -12px 20px #ffffff;
+            transform: translateY(-10px) scale(1.1) rotate(3deg);
+            box-shadow: 12px 12px 25px rgba(0,0,0,0.3);
         }
 
         #darkModeBtn {
@@ -63,7 +69,7 @@
             cursor: pointer;
             background: #333;
             color: #fff;
-            box-shadow: 4px 4px 10px #c1c1c1, -4px -4px 10px #ffffff;
+            box-shadow: 4px 4px 10px #aaa, -4px -4px 10px #fff;
             transition: transform 0.2s, background 0.3s, color 0.3s;
         }
 
@@ -78,15 +84,29 @@
             color: #f0f0f0;
         }
 
-        body.dark .card {
-            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-            color: #f0f0f0;
-            box-shadow: 8px 8px 15px #111, -8px -8px 15px #333;
-        }
+        body.dark .card:nth-child(1) { background: linear-gradient(145deg, #ff6f61, #ff8a65); }
+        body.dark .card:nth-child(2) { background: linear-gradient(145deg, #43a047, #66bb6a); }
+        body.dark .card:nth-child(3) { background: linear-gradient(145deg, #1e88e5, #42a5f5); }
+        body.dark .card:nth-child(4) { background: linear-gradient(145deg, #8e24aa, #ab47bc); }
 
         body.dark #darkModeBtn {
             background: #f0f0f0;
             color: #121212;
+        }
+
+        /* Floating emoji animation */
+        .emoji {
+            position: fixed;
+            font-size: 24px;
+            pointer-events: none;
+            user-select: none;
+            animation: floatUp 5s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(-50px) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
@@ -96,13 +116,16 @@
     <p>Choose an experience:</p>
 
     <div class="card-container">
-        <div class="card" onclick="goTo('mood.html')">💭 Mood Tracker</div>
-        <div class="card" onclick="goTo('guess.html')">🎲 Guess the Number</div>
-        <div class="card" onclick="goTo('hello.html')">🌈 Hello Page</div>
-        <div class="card" onclick="goTo('memory.html')">🧠 Memory Game</div>
+        <div class="card" onclick="goTo('mood.html'); playClick()">💭 Mood Tracker</div>
+        <div class="card" onclick="goTo('guess.html'); playClick()">🎲 Guess the Number</div>
+        <div class="card" onclick="goTo('hello.html'); playClick()">🌈 Hello Page</div>
+        <div class="card" onclick="goTo('memory.html'); playClick()">🧠 Memory Game</div>
     </div>
 
     <button id="darkModeBtn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+    <!-- Click sound -->
+    <audio id="clickSound" src="https://www.myinstants.com/media/sounds/mouse-click.mp3"></audio>
 
     <script>
         function goTo(page) {
@@ -114,6 +137,23 @@
             const btn = document.getElementById('darkModeBtn');
             btn.innerText = document.body.classList.contains('dark') ? '☀️ Light Mode' : '🌙 Dark Mode';
         }
+
+        function playClick() {
+            const sound = document.getElementById('clickSound');
+            sound.currentTime = 0;
+            sound.play();
+        }
+
+        // Floating emojis effect
+        const emojis = ['✨','🌟','💫','🔥','🌈'];
+        setInterval(() => {
+            const e = document.createElement('div');
+            e.classList.add('emoji');
+            e.style.left = Math.random() * window.innerWidth + 'px';
+            e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 5000);
+        }, 500);
     </script>
 
 </body>
