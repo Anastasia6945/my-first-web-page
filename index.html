@@ -2,66 +2,98 @@
 <html>
 <head>
     <title>My Mini App Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial;
+            font-family: 'Roboto', Arial, sans-serif;
             text-align: center;
-            margin-top: 60px;
-            background-color: #f5f5f5;
-            transition: background-color 0.3s, color 0.3s;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #f5f5f5, #e0e0e0);
+            transition: background 0.5s, color 0.5s;
         }
 
         h1 {
-            margin-bottom: 10px;
+            margin-top: 50px;
+            font-size: 3em;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #555;
         }
 
         .card-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
             flex-wrap: wrap;
-            margin-top: 40px;
+            gap: 30px;
+            margin: 50px 20px;
         }
 
         .card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            padding: 30px 50px;
-            font-size: 18px;
+            background: linear-gradient(145deg, #ffffff, #e0e0e0);
+            border-radius: 15px;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 8px 8px 15px #d1d1d1, -8px -8px 15px #ffffff;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 12px 12px 20px #c1c1c1, -12px -12px 20px #ffffff;
         }
 
         #darkModeBtn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
+            margin-top: 30px;
+            padding: 12px 25px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
             cursor: pointer;
-            border-radius: 8px;
+            background: #333;
+            color: #fff;
+            box-shadow: 4px 4px 10px #c1c1c1, -4px -4px 10px #ffffff;
+            transition: transform 0.2s, background 0.3s, color 0.3s;
         }
 
-        /* Dark mode styles */
+        #darkModeBtn:hover {
+            transform: scale(1.1);
+            background: #555;
+        }
+
+        /* Dark mode */
         body.dark {
-            background-color: #121212;
+            background: linear-gradient(to bottom, #121212, #1a1a1a);
             color: #f0f0f0;
         }
 
         body.dark .card {
-            background-color: #1e1e1e;
+            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
             color: #f0f0f0;
+            box-shadow: 8px 8px 15px #111, -8px -8px 15px #333;
+        }
+
+        body.dark #darkModeBtn {
+            background: #f0f0f0;
+            color: #121212;
         }
     </style>
 </head>
 <body>
 
-    <h1>👋 Welcome to My Mini App Hub</h1>
-    <p>Choose what you want to explore:</p>
+    <h1>👋 My Mini App Hub</h1>
+    <p>Choose an experience:</p>
 
     <div class="card-container">
         <div class="card" onclick="goTo('mood.html')">💭 Mood Tracker</div>
@@ -79,13 +111,8 @@
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark');
-
             const btn = document.getElementById('darkModeBtn');
-            if(document.body.classList.contains('dark')) {
-                btn.innerText = '☀️ Light Mode';
-            } else {
-                btn.innerText = '🌙 Dark Mode';
-            }
+            btn.innerText = document.body.classList.contains('dark') ? '☀️ Light Mode' : '🌙 Dark Mode';
         }
     </script>
 
